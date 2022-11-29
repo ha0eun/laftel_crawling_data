@@ -13,8 +13,6 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_title = pd.DataFrame()
 url = 'https://laftel.net/finder'
 
-
-
 for i in range(12, 19): # 성인 - 액션
     titles = []
     driver.get(url)
@@ -23,6 +21,7 @@ for i in range(12, 19): # 성인 - 액션
     category_xpath1 = '//*[@id="root"]/div/div[2]/div[2]/div[1]/div/div/div/div[1]/div[2]/div/div/div/div/section[1]/div[1]/div'  # 장르
     driver.find_element('xpath', category_xpath1).click()
     time.sleep(1)
+
     category_xpath2 = '//*[@id="modal-portal"]/div/div[2]/div[2]/div[{}]'.format(i)     # 카테고리 선택버튼
     driver.find_element('xpath', category_xpath2).click()
     time.sleep(1)
@@ -30,6 +29,7 @@ for i in range(12, 19): # 성인 - 액션
     category_xpath3 = '//*[@id="modal-portal"]/div/div[2]/div[1]/div[2]/button[2]'     # 확인버튼
     driver.find_element('xpath', category_xpath3).click()
     time.sleep(1)
+
     driver.maximize_window()
     prev_height = driver.execute_script("return document.body.scrollHeight")
 
@@ -41,7 +41,7 @@ for i in range(12, 19): # 성인 - 액션
             break
         else:
             prev_height = driver.execute_script("return document.body.scrollHeight")
-    for j in range(1, pages[i]):
+    for j in range(1, pages[i-12]):
         category_xpath4 = '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[3]/div[{}]/a'.format(j)     # 제목
 
         title = driver.find_element('xpath', category_xpath4).text
@@ -49,9 +49,9 @@ for i in range(12, 19): # 성인 - 액션
         titles.append(title)
         if j % 10 == 0:     # 10개마다 저장
             df_section_title = pd.DataFrame(titles, columns=['titles'])
-            df_section_title['category'] = category[i]
+            df_section_title['category'] = category[i-12]
             df_title = pd.concat([df_title, df_section_title], ignore_index=True)
-            df_title.to_csv('./crawling_data/crawling_data_{}_{}.csv'.format(category[i], j), index=False)
+            df_title.to_csv('./crawling_data/crawling_data_{}_{}.csv'.format(category[i-12], j), index=False)
             titles = []
 
 
