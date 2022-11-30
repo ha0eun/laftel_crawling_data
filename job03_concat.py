@@ -4,8 +4,8 @@ import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-category =['성인', '', '', '', '아동', '', '액션']
-pages = [192, 0, 0, 0, 656, 0, 1002]
+category =['액션']
+pages = [1002]
 
 options = webdriver.ChromeOptions()
 options.add_argument('lang=kr_KR')
@@ -13,7 +13,7 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_title = pd.DataFrame()
 url = 'https://laftel.net/finder'
 
-for i in range(12, 19): # 음식 - 판타지
+for i in range(18, 19): # 음식 - 판타지
     titles = []
     summary = []
     driver.get(url)
@@ -42,11 +42,11 @@ for i in range(12, 19): # 음식 - 판타지
         else:
             prev_height = driver.execute_script("return document.body.scrollHeight")
 
-    for j in range(1, pages[i-12]):
+    for j in range(891, pages[i-18]):
         title_xpath4 = '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[3]/div[{}]/div/img'.format(j)  # 외부 이미지로
         title_xpath5 = '//*[@id="item-modal"]/div[1]/div/div[2]/div/header/h1'.format(j) # 내부 제목
         driver.find_element('xpath', title_xpath4).click()
-        time.sleep(4)
+        time.sleep(3)
 
         title_xpath6 = '//*[@id="item-modal"]/div[1]/div/div[2]/div/div/button' # 더보기
         driver.find_element('xpath', title_xpath6).click()
@@ -71,9 +71,9 @@ for i in range(12, 19): # 음식 - 판타지
         if j % 10 == 0:     # 10개마다 저장
             df_section_title = pd.DataFrame(titles, columns=['titles'])
             df_section_summary = pd.DataFrame(summary, columns=['summary'])
-            df_section_title['category'] = category[i-12]
+            df_section_title['category'] = category[i-18]
             temp = pd.concat([df_section_title, df_section_summary], axis=1)
             df_title = pd.concat([df_title, temp], ignore_index=True)
-            df_title.to_csv('./crawling_data_3/crawling_data_{}_{}.csv'.format(category[i-12], j), index=True)
+            df_title.to_csv('./crawling_data_3/crawling_data_{}_{}.csv'.format(category[i-18], j), index=True)
             titles = []
             summary = []
