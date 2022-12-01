@@ -4,15 +4,16 @@ import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-category = ['성인', '스릴러', '스포츠', '시대물', '아동', '아이돌', '액션']
-pages = [192, 74, 165, 174, 656, 71, 1002]
+# category = ['성인', '스릴러', '스포츠', '시대물', '아동', '아이돌', '액션']
+# pages = [192, 74, 165, 174, 656, 71, 1002]
+category = ['성인', '', '', '', '아동', '', '액션']
+pages = [192, 0, 0, 0, 656, 0, 1002]
 
 options = webdriver.ChromeOptions()
 options.add_argument('lang=kr_KR')
 driver = webdriver.Chrome('./chromedriver', options=options)
 df_title = pd.DataFrame()
 url = 'https://laftel.net/finder'
-
 
 
 for i in range(12, 19): # 성인 - 액션

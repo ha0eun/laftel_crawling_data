@@ -5,8 +5,8 @@ import re
 import time
 import datetime
 
-category =['성인', '스릴러', '스포츠', '시대물', '아동', '아이돌', '액션']
-
+ccategory = ['성인', '스릴러', '스포츠', '시대물', '아동', '아이돌', '액션']
+pages = [192, 74, 165, 174, 656, 71, 1002]
 
 url = 'https://laftel.net/finder'       # 반응형 웹사이트
 
