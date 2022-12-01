@@ -42,7 +42,7 @@ for i in range(18, 19): # 음식 - 판타지
         else:
             prev_height = driver.execute_script("return document.body.scrollHeight")
 
-    for j in range(891, pages[i-18]):
+    for j in range(1, pages[i-18]):
         title_xpath4 = '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[3]/div[{}]/div/img'.format(j)  # 외부 이미지로
         title_xpath5 = '//*[@id="item-modal"]/div[1]/div/div[2]/div/header/h1'.format(j) # 내부 제목
         driver.find_element('xpath', title_xpath4).click()

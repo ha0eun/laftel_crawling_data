@@ -1,3 +1,4 @@
+# 라프텔 카테고리 크롤링
 import re
 import pandas as pd
 import time
