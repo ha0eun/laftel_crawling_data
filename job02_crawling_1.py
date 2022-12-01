@@ -16,7 +16,7 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_title = pd.DataFrame()
 url = 'https://laftel.net/finder'
 
-for i in range(18,19): # 음식 - 판타지
+for i in range(18,19): # 액션
     titles = []
     multi_category = []
     driver.get(url)
@@ -45,7 +45,7 @@ for i in range(18,19): # 음식 - 판타지
         else:
             prev_height = driver.execute_script("return document.body.scrollHeight")
 
-    for j in range(871, pages[i-18]):
+    for j in range(1, pages[i-18]): # pages[i-18] 범위를 빼야 0부터 시작함
         title_xpath4 = '//*[@id="root"]/div/div[2]/div[2]/div[2]/div[3]/div[{}]/div/img'.format(j) # 이미지클릭해서 창 열게함
         title_xpath5 = '//*[@id="item-modal"]/div[1]/div/div[2]/div/header/h1' # 바깥 창의 제목
         driver.find_element('xpath', title_xpath4).click()
